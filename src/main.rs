@@ -15,7 +15,14 @@ fn main() {
         // number has to be redeclared each loop iteration or program will crash on parse
         let mut number: String = String::new();
         io::stdin().read_line(&mut number).expect("Number must between 1-100");
-        let guess: i32 = number.trim().parse().expect("Must be a number!");
+
+        // parsing number from string, assigning to guess
+        let guess: i32 = match number.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
+
+        println!("number value: {number}");
         match guess.cmp(&secret_number) {
             Ordering::Less => println!("Too small!"),
             Ordering::Greater => println!("Too big!"),
